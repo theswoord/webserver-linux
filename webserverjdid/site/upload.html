@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="s.css">
+    <title>Nkhinx V1.0.0</title>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Nkhinx V1.0.0</h1>
+        </header>
+        <div class="image-container">
+            <img src="ser.png" alt="Sample Image">
+        </div>
+        <div class="main-form">
+            <form id="submitForm" action="/CGIscripts/post.py" method="POST" enctype="multipart/form-data">
+                <div class="method-container">
+                    <select id="methodSelect">
+                        <option value="POST">POST</option>
+                        <option value="GET">GET</option>
+                    </select>
+                </div>
+                <strong>Name:</strong><br>
+                <input type="text" name="na"><br><br>
+                <strong>Value:</strong><br>
+                <input type="text" name="va"><br><br>
+                <button type="button" onclick="submitForm()">Submit me</button>
+            </form>
+            <div class="buttons">
+                <button class="right-button boxing-site">Boxing Site</button>
+                <button class="right-button ecom-site">Ecom Site</button>
+                <button class="right-button 1337-site">Redirection Test 1 (http://1337.ma)</button>
+                <button class="right-button anotherServer-site">Redirection Test 2 (From one server to another)</button>
+            </div>
+        </div>
+
+        <br><br><br><br><br>
+        <h2>Upload File</h2>
+        <form action="/CGIscripts/upload.py" method="POST" enctype="multipart/form-data">
+            <input type="file" name="file" multiple>
+            <button type="submit">Submit me</button>
+        </form>
+        <br><br><br><br><br>
+    </div>
+    <script>
+        function submitForm() {
+            var form = document.getElementById('submitForm');
+            var method = document.getElementById('methodSelect').value;
+            form.setAttribute('method', method);
+
+            if (method === 'GET') {
+                form.setAttribute('action', '/CGIscripts/get.py');
+            } else {
+                form.setAttribute('action', '/CGIscripts/post.py');
+            }
+            form.submit();
+        }
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var buttons = document.querySelectorAll('.right-button');
+            buttons.forEach(function(button) {
+                button.addEventListener('click', function() {
+                    var className = this.className;
+                    var url;
+                    if (className.includes('boxing-site')) {
+                        console.log('boxing-site');
+                        url = "http://localhost/";
+                    } else if (className.includes('ecom-site')) {
+                        url = "http://localhost:8080";
+                    } else if (className.includes('1337-site')) {
+                        url = "https://www.1337.ma";
+                    } else if (className.includes('anotherServer-site')) {
+                        url = "/lol";
+                    }
+                    if (url) {
+                        window.open(url, "_blank");
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
