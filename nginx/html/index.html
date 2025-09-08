@@ -1,0 +1,22 @@
+<html>
+ <body>
+  <h1>Welcometonjinx</h1>
+  <p>mr7ba</p>
+  <button type="button" , id="get"> get that file
+
+
+  </button>
+  <script type="text/javascript">
+    let btn = document.getElementById("get");
+
+    btn.addEventListener("click", getfile());
+
+    async function getfile()
+    {
+        const response = await fetch("http://localhost:8081/test.txt")
+        const json = await response.json();
+        console.log(json);
+    }
+  </script>
+ </body>
+</html>
