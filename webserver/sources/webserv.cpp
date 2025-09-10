@@ -164,6 +164,13 @@ void server::response(clients_tools &clients)
 
         return;
     }
+    if (parse_request(clients.request,"method") == "PATCH")
+    {
+        handle_patch(clients);
+        close(clients.fd);
+        delete_client(clients);
+        return;
+    }
 
     if (parse_request(clients.request, "method") == "DELETE")
     {
@@ -973,4 +980,21 @@ void server::send_erreur(int fd, std::string hhh)
     std::string miw;
     headers(miw, fd, "404");
     send(fd, hhh.c_str(), hhh.size(), 0);
+}
+
+void server::handle_patch(clients_tools &client)
+{
+    std::ifstream patchfile(get_details(client.config,"patchfile").c_str());
+    Json::Value value;
+    patchfile >> value;
+    patchfile.close();
+    long actual = value["clicks"].asInt() ;
+    actual++;
+    value["clicks"] = actual;
+
+    std::ofstream out(get_details(client.config,"patchfile").c_str());
+    out << value;
+    out.close();
+    headers(client.response_string, client.fd, "200");
+
 }

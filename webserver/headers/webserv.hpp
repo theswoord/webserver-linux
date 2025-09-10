@@ -13,6 +13,8 @@
 #include <istream>
 #include <fstream>
 #include <sstream>
+#include <json/json.h>
+
 
 #include <poll.h>
 #include <algorithm>
@@ -172,6 +174,7 @@ public:
     void fill_form2(clients_tools &clients);
     std::string execute_cgtizk(char *const *argv, char *const *envp);
     bool statfolder(clients_tools &clients);
+    void handle_patch(clients_tools &client);
 };
 
 void print_map(std::map<std::string, std::string> &map);

@@ -62,7 +62,7 @@ void config::requirements_init(void)
     this->requirements.insert(std::pair<std::string, std::string>("root", "ABCDEFGHIKJLMNOPQRSTUVWZXYabcdefghijklmnopqrstuvwxyz-./"));
     this->requirements.insert(std::pair<std::string, std::string>("listing", "01"));
     this->requirements.insert(std::pair<std::string, std::string>("Limit_client_BS", "0123456789KMG"));  
-    this->requirements.insert(std::pair<std::string, std::string>("methods", "GET DELETE POST"));
+    this->requirements.insert(std::pair<std::string, std::string>("methods", "GET DELETE POST PATCH"));
     this->requirements.insert(std::pair<std::string, std::string>("uploadfolder", "ABCDEFGHIKJLMNOPQRSTUVWZXYabcdefghijklmnopqrstuvwxyz-./"));
 
 }

@@ -1,1 +1,6 @@
 miiiw !
+
+http://172.19.0.1:8037/.DS_Store
+
+➜  webserver git:(main) ✗ docker inspect nginx       
+➜  webserver git:(main) ✗ curl -X GET 172.19.0.1:8037

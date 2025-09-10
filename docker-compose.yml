@@ -19,7 +19,7 @@ services:
   websrv:
     container_name: webserv
     build:
-      context: ./beforepush
+      context: ./webserver
       dockerfile: Dockerfile
     image: webserv:inception42
     # ports:

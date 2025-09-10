@@ -9,6 +9,8 @@ FROM alpine:latest
 
 
 RUN apk add --no-cache --update build-base
+RUN apk add jsoncpp-dev
+
 # RUN apk add curl
 
 COPY . /home/webserver
