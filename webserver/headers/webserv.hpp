@@ -32,10 +32,11 @@
 #include "config.hpp"
 #include "singleServer.hpp"
 #include <signal.h>
+// #include <cstring.h>
     // ...
 
 
-#define BUFFER_SIZE 1024
+#define BUFFER_SIZE 4096
 #define MULTIPART -2
 #define CHUNK -1
 #define FORM -3

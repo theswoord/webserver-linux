@@ -1,0 +1,12 @@
+tunnel: 414fa6fc-9b8f-4e21-9021-40756e844b07
+credentials-file: /etc/cloudflared/414fa6fc-9b8f-4e21-9021-40756e844b07.json
+ingress:
+  - hostname: nabilbouhali.xyz
+    service: http://nginx:80
+    originRequest:
+      originServerName: nabilbouhali.xyz
+  - hostname: www.nabilbouhali.xyz
+    service: http://nginx:80
+    originRequest:
+      originServerName: www.nabilbouhali.xyz
+  - service: http_status:404

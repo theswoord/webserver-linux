@@ -225,17 +225,17 @@ void server::response(clients_tools &clients)
 
         return;
     }
-    if (parse_request(clients.request, "method") == "GET" && is_keep_alive(clients.request))
+    if (parse_request(clients.request, "method") == "GET")
     {
 
         send_weird_message(clients);
         return;
     }
-    else if (parse_request(clients.request, "method") == "GET" && !is_keep_alive(clients.request))
-    {
-        sendfile(clients);
-        return;
-    }
+    // else if (parse_request(clients.request, "method") == "GET" && !is_keep_alive(clients.request))
+    // {
+    //     sendfile(clients);
+    //     return;
+    // }
 }
 
 void server::send_weird_message(clients_tools &clients)
@@ -708,7 +708,7 @@ void server::read_request(clients_tools &clients)
     }
     if (clients.wach_post == 0)
     {
-        char *buffer = new char[1024];
+        char *buffer = new char[BUFFER_SIZE];
         ft_bzero(buffer, BUFFER_SIZE);
         int size = recv(clients.fd, buffer, BUFFER_SIZE, 0);
         if (clients.readd == -2)
@@ -727,6 +727,7 @@ void server::read_request(clients_tools &clients)
         if (size > 0)
         {
             std::string buff(buffer, size);
+            std::cout << buff << std::endl;
             clients.request = handle_request(buff);
             ft_bzero(buffer, BUFFER_SIZE);
             clients.readd = 1;

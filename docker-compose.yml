@@ -8,13 +8,41 @@ services:
     # env_file:
     #   - .env
     ports:
-      - "8037:80"
+      - "80:80"
+      # - "443:443"
+      # - "8037:80"
+      # - "8038:443"
+
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./nginx/html:/usr/share/nginx/html:ro
+      - ./certbot/conf:/etc/letsencrypt  # SSL certificates
+      - ./certbot/www:/var/www/certbot  # Certbot challenge directory
     networks:
       - mynet
     restart: always
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest 
+    restart: unless-stopped
+    container_name: cloudflared
+    command: tunnel -no-autoupdate run
+    environment:
+      - TUNNEL_TOKEN=${CLOUDFLARE_TUNNEL_TOKEN}
+    networks:
+      - mynet
+    volumes:
+      - ./cloudflared:/etc/cloudflared
+  certbot:
+    image: certbot/certbot
+    container_name: certbot
+    volumes:
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+    # Only run when needed (manually or via cron)
+    profiles: ["disable"]  # Prevents auto-start
+    networks:
+      - mynet
 
   websrv:
     container_name: webserv
@@ -30,3 +58,7 @@ services:
 networks:
   mynet:
     driver: bridge
+
+volumes:
+  certbot:
+    driver: local
